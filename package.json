@@ -1,0 +1,12 @@
+{
+  "name": "ncp-server",
+  "description": "Real time web server",
+  "main": "server.coffee",
+  "private": true,
+  "dependencies": {
+    "coffee-script": "~1.6.3",
+    "express": "~3.4.8",
+    "socket.io": "~0.9.16",
+    "underscore": "~1.5.2"
+  }
+}
