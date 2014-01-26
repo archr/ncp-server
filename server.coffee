@@ -4,7 +4,7 @@ server = http.createServer(app)
 io = require('socket.io').listen(server)
 socket = require('./socket').listen(io)
 
-server.listen(4000)
+server.listen(5000)
 
 app.get '/ping', 
 	(req, res) -> res.send('Ok')
