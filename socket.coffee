@@ -37,12 +37,15 @@ handlers['addUser'] = (socket) ->
 		room = "#{retador}_#{desafiante}"
 		mazo = coupier.new()
 
+		socket.join(room)
 		rooms[room] =
 			retador: retador
 			desafiante: desafiante
 			mazo: coupier.new()
 
+		io.sockets.socket(retador).join(room)
 		users[retador].room = room
+
 
 		users[desafiante] =
 			nickname: nickname
@@ -56,8 +59,7 @@ handlers['addUser'] = (socket) ->
 					name: nickname
 					mano: mazo.desafiante
 					cartas: mazo.cartas
-				start: false
-					
+				start: false		
 
 
 		socket.emit 'reta',
@@ -69,6 +71,35 @@ handlers['addUser'] = (socket) ->
 					mano: mazo.retador
 					cartas: mazo.cartas
 				start: true
+
+		usersInRoom = io.sockets.clients(room)
+		console.log(usersInRoom)
+
+		return 
+
+handlers['question'] = (socket) ->
+	socket.on 'question', (e) ->
+		user = users[socket.id]
+		socket.broadcast.to(user.room).emit 'question', e
+
+handlers['answer'] = (socket) ->
+	socket.on 'answer', (e) ->
+		user = users[socket.id]
+		data = continue: true
+		if e.key is '2'
+			data.continue = false
+		
+		socket.broadcast.to(user.room).emit 'answer', data
+
+
+
+		console.log 'answer', e
+		#Si es si puede seguir preguntando
+		#Si es no
+		#Se envia un cambio de estados
+		#
+		#
+
 
 
 exports.listen = (IO) ->
