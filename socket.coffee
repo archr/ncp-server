@@ -91,15 +91,7 @@ handlers['answer'] = (socket) ->
 		
 		socket.broadcast.to(user.room).emit 'answer', data
 
-
-
 		console.log 'answer', e
-		#Si es si puede seguir preguntando
-		#Si es no
-		#Se envia un cambio de estados
-		#
-		#
-
 
 
 exports.listen = (IO) ->
