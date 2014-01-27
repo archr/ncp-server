@@ -91,8 +91,6 @@ handlers['answer'] = (socket) ->
 		
 		socket.broadcast.to(user.room).emit 'answer', data
 
-		console.log 'answer', e
-
 
 exports.listen = (IO) ->
 	io = IO
